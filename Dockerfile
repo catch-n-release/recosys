@@ -20,7 +20,7 @@ COPY ./pyproject.toml ./poetry.lock* /recosys
 COPY ./_tests /recosys/_tests
 COPY ./app /recosys/app
 COPY ./data /recosys/data
-COPY ./ml /recosys/data
+COPY ./ml /recosys/ml
 COPY ./utils /recosys/utils
 
 

@@ -69,7 +69,7 @@ formatter = "formatter"
 [app.path]
 self = "pyproject.toml"
 dataset_dir = "data/"
-dataset = "data/movie_log_25k.csv"
+dataset = "data/raw_data_1667912638764.csv"
 trainset = "data/trainset.csv"
 testset = "data/testset.csv"
 processed_dataset = "data/processed.csv"

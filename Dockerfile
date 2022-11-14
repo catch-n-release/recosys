@@ -30,7 +30,7 @@ RUN mkdir reports
 
 #CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "80"]
 
-RUN ["pytest", "-v","_tests/unit/test_ml","--cov", "--junitxml=reports/ml_result.xml"]
-RUN ["pytest", "-v","--ignore=_tests/unit/test_ml","--cov", "--junitxml=reports/app_result.xml"]
+RUN ["pytest", "-v","-m","not app", "--junitxml=reports/ml_result.xml"]
+RUN ["pytest", "-v","-m","app","--cov", "--junitxml=reports/app_result.xml"]
 
 CMD tail -f /dev/null

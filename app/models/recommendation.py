@@ -41,7 +41,7 @@ class MovieRecommender:
         """
 
         try:
-            predictor_path = self.settings.app.path.baseline_predictor_path
+            predictor_path = self.settings.app.path.recommender
             loaded_predictor: Tuple[List[str],
                                     AlgoBase] = dump.load(predictor_path)
             _, self.predictor = loaded_predictor

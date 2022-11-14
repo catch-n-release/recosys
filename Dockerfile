@@ -28,7 +28,6 @@ WORKDIR /recosys
 
 RUN mkdir reports
 
-
 #CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "80"]
 
 RUN ["pytest", "-v","-m","not app", "--junitxml=reports/ml_result.xml"]

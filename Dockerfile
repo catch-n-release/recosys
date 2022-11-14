@@ -23,7 +23,6 @@ COPY ./data /recosys/data
 COPY ./ml /recosys/ml
 COPY ./utils /recosys/utils
 
-
 WORKDIR /recosys
 
 RUN mkdir reports
@@ -32,10 +31,5 @@ RUN mkdir reports
 
 RUN ["pytest", "-v","-m","not app", "--junitxml=reports/ml_result.xml"]
 RUN ["pytest", "-v","-m","app","--cov", "--junitxml=reports/app_result.xml"]
-
-RUN ls
-RUN cd reports
-RUN ls
-
 
 CMD tail -f /dev/null

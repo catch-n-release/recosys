@@ -70,6 +70,10 @@ def save_predictor(
             config.app.path.predictor,
             algo=predictor,
         )
+        dump.dump(
+            config.app.path.recommender,
+            algo=predictor,
+        )
     except Exception as e:
         raise e
 

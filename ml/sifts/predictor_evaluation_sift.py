@@ -10,7 +10,7 @@ from ml import log
 @task
 def boot_predictor(config: type) -> AlgoBase:
     try:
-        return dump.load(config.app.path.svd_predictor_path)[1]
+        return dump.load(config.app.path.predictor)[1]
     except Exception as e:
         raise e
 

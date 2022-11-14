@@ -2,12 +2,14 @@
 """
 from utils.logger import Logger
 import logging
-import pytest
+
+# import pytest
 
 
-@pytest.mark.parametrize("fixture, instance, handler",
-                         [("", True, True), ("app_config", True, True)])
-def test_logger(fixture, instance, handler, request):
+# @pytest.mark.parametrize("fixture, instance, handler",
+#                          [("", True, True), ("app_config", True, True)])
+# def test_logger(fixture, instance, handler, request):
+def test_logger(app_config):
     """Test for custom Logger.
 
     Args:
@@ -16,8 +18,7 @@ def test_logger(fixture, instance, handler, request):
         handler (bool): check for handlers.
         request (fixture): request fixture.
     """
-    logger = Logger(toml_file_path=request.getfixturevalue(
-        fixture).app.path.self) if fixture else Logger()
+    logger = Logger(toml_file_path=app_config.app.path.self)
     log = logger.setup()
     assert isinstance(log, logging.Logger)
     assert log.hasHandlers()

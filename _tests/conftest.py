@@ -157,8 +157,8 @@ def train_test_data(clean_df):
 
 @pytest.fixture(scope="session",
                 params=[
-                    "app/recommenders/rec_model_BaseLine_v1.surp",
-                    "app/recommenders/rec_model_SVD_v1.surp",
+                    "app/recommenders/legacy/rec_model_BaseLine_v1.surp",
+                    "app/recommenders/legacy/rec_model_SVD_v1.surp",
                 ])
 def predictor_paths(request):
     """Summary

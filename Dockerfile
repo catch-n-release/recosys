@@ -33,3 +33,4 @@ RUN ["pytest", "-v","-m","not app", "--junitxml=reports/ml_result.xml"]
 RUN ["pytest", "-v","-m","app","--cov", "--junitxml=reports/app_result.xml"]
 
 CMD tail -f /dev/null
+

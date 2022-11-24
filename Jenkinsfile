@@ -41,7 +41,11 @@ pipeline {
         }
 
         stage("Running Container"){
-            sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+            steps{
+
+                sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+            }
+
 
         }
 

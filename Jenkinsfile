@@ -1,6 +1,5 @@
 // properties([pipelineTriggers([githubPush()])])
 // def container
-setBuildStatus("Build Started", "PENDING")
 node
     {
     /* specify nodes for executing */
@@ -11,6 +10,7 @@ node
 
 
     // def container
+        setBuildStatus("Build Started", "PENDING")
         container=docker.build("${env.BUILD_ID}")
         container.inside()
             {

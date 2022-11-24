@@ -43,8 +43,8 @@ pipeline
 
             steps
             {
-            // script
-                // {
+            script
+                {
                 conatiner=docker.build("${CONTAINER_NAME}")
                 // steps{
                 //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
@@ -54,7 +54,7 @@ pipeline
                 //     sh "ls"
                 //                 }
                 // }
-                // }
+                }
 
             }
         }

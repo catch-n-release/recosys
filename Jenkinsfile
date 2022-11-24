@@ -10,10 +10,10 @@ node
 
 
     // def container
-    container=docker.build("${env.BUILD_ID}")
-    container.inside(){
-        stages
-            {
+        container=docker.build("${env.BUILD_ID}")
+        container.inside(){
+        // stages
+        //     {
 
 
             /* checkout repo */
@@ -127,7 +127,7 @@ node
                     echo ">> Run deploy applications "
                     }
                 }
-            }
+            // }
 
         /* Cleanup workspace */
         post
@@ -146,6 +146,7 @@ node
         }
     }
 }
+
 
 
 void setBuildStatus(String message, String state) {

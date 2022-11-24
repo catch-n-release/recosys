@@ -48,14 +48,18 @@ pipeline {
 
         }
 
-        // stage("Running Container"){
-        //     // steps{
+        stage("Installing Requirements"){
+            steps{
 
-        //     //     sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
-        //     // }
+                script{
+                    conatiner.inside{
+                        sh "RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                    }
+                }
+            }
 
 
-        // }
+        }
 
         stage('Do the deployment') {
             steps {

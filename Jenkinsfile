@@ -14,7 +14,7 @@ pipeline
 
     stages
         {
-            setBuildStatus("Build Started", "PENDING")
+
         /* checkout repo */
         // stage('Checkout SCM')
         //     {
@@ -44,6 +44,7 @@ pipeline
 
             steps
             {
+            setBuildStatus("Build Started", "PENDING")
             script
                 {
                 conatiner=docker.build("${CONTAINER_NAME}")

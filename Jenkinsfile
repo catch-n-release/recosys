@@ -26,6 +26,15 @@ pipeline {
             }
         }
 
+        stage("Dockerizing"){
+
+            steps{
+                sh "pwd"
+                sh "ls"
+            }
+
+        }
+
         stage('Do the deployment') {
             steps {
                 echo ">> Run deploy applications "

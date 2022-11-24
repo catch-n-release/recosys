@@ -2,14 +2,11 @@
 
 pipeline {
     /* specify nodes for executing */
-    def conatiner
     agent any
-
     environment {
         IMAGE_NAME = 'test_image'
         CONTAINER_NAME   = 'test_container'
     }
-
 
     stages {
         /* checkout repo */
@@ -36,14 +33,18 @@ pipeline {
 
         stage("Dockerizing"){
 
-            conatiner=docker.build("${CONTAINER_NAME}")
-            // steps{
-            //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
-            //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
-            // }
-            conatiner.inside{
-                sh "ls"
-            }
+            steps{
+                script{
+                    conatiner=docker.build("${}")
+                    // steps{
+                    //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
+                    //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
+                    // }
+                    conatiner.inside{
+                        sh "ls"
+                                    }
+                    }
+                }
 
         }
 

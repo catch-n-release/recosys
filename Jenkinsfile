@@ -2,12 +2,14 @@
 
 pipeline {
     /* specify nodes for executing */
+    def conatiner
     agent any
+
     environment {
         IMAGE_NAME = 'test_image'
         CONTAINER_NAME   = 'test_container'
     }
-    def conatiner
+
 
     stages {
         /* checkout repo */

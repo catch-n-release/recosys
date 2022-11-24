@@ -24,7 +24,7 @@ node
 
 
                     }
-                stage("ML TESTS")
+                stage("ML FLUX TESTS")
                     {
 
                         sh "pytest -m ml"
@@ -45,6 +45,7 @@ node
             catch(exc)
                 {
                     setBuildStatus("Build failed", "FAILURE")
+                    throw
                 }
             }
     }

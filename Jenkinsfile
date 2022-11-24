@@ -10,15 +10,16 @@ pipeline
             CONTAINER_NAME   = 'test_container'
         }
 
-        script
-        {
-            def container
-        }
+
 
     // def container
 
     stages
         {
+            script
+                {
+                def container
+                }
 
         /* checkout repo */
         // stage('Checkout SCM')

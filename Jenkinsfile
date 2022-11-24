@@ -45,9 +45,9 @@ pipeline
             steps
             {
             setBuildStatus("Build Started", "PENDING")
-            // script
-            //     {
-                def conatiner=docker.build("${CONTAINER_NAME}")
+            script
+                {
+                conatiner=docker.build("${CONTAINER_NAME}")
                 // steps{
                 //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
                 //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
@@ -56,7 +56,7 @@ pipeline
                 //     sh "ls"
                 //                 }
                 // }
-                // }
+                }
 
             }
         }
@@ -68,7 +68,7 @@ pipeline
 
                 script
                     {
-                        conatiner.inside
+                        conatiner.image('${CONTAINER_NAME}').run
                             {
                             sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                             }
@@ -84,7 +84,7 @@ pipeline
 
                 script
                     {
-                        conatiner.inside
+                        conatiner.image('${CONTAINER_NAME}').run
                             {
                             sh "pytest -m ml"
                             }
@@ -126,7 +126,7 @@ void setBuildStatus(String message, String state) {
       $class: "GitHubCommitStatusSetter",
       // reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/catch-n-release/recosys.git"],
       // contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
-      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      // errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
       statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
   ]);
 }

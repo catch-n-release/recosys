@@ -5,6 +5,7 @@ pipeline
     /* specify nodes for executing */
         agent
             {
+                any
                 def container
             }
         environment

@@ -3,7 +3,10 @@
 pipeline
     {
     /* specify nodes for executing */
-        agent any
+        agent
+            {
+                def container
+            }
         environment
         {
             IMAGE_NAME = 'test_image'
@@ -47,7 +50,7 @@ pipeline
             setBuildStatus("Build Started", "PENDING")
             script
                 {
-                docker.build("${CONTAINER_NAME}")
+                container=docker.build("${CONTAINER_NAME}")
                 // docker.image("${CONTAINER_NAME}").run()
                 //     {
                 //         sh ""
@@ -73,7 +76,8 @@ pipeline
 
                     script
                         {
-                            docker.image("${CONTAINER_NAME}").run()
+                            // docker.image("${CONTAINER_NAME}").run()
+                            container.inside()
                                 {
                                 sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                                 }
@@ -106,7 +110,8 @@ pipeline
 
                 script
                     {
-                        docker.image("${CONTAINER_NAME}").run()
+                        // docker.image("${CONTAINER_NAME}").run()
+                        container.inside()
                         {
                             sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                         }

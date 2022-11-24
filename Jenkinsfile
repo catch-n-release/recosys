@@ -21,7 +21,7 @@ node
                     {
 
                         sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                        sh "mkdir reports"
+                        sh "rm -rf reports && mkdir reports"
 
 
                     }

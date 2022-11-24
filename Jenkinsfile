@@ -1,10 +1,10 @@
 // properties([pipelineTriggers([githubPush()])])
 // def container
-setBuildStatus("Build Started", "PENDING")
 node
     {
     /* specify nodes for executing */
         // agent any
+        setBuildStatus("Build Started", "PENDING")
         env.IMAGE_NAME = 'test_image'
         env.CONTAINER_NAME   = 'test_container'
 

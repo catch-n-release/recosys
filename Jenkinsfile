@@ -1,5 +1,5 @@
 // properties([pipelineTriggers([githubPush()])])
-
+def container
 pipeline
     {
     /* specify nodes for executing */
@@ -16,10 +16,7 @@ pipeline
 
     stages
         {
-            script
-                {
-                def container
-                }
+
 
         /* checkout repo */
         // stage('Checkout SCM')

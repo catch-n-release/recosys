@@ -7,6 +7,7 @@ pipeline {
         IMAGE_NAME = 'test_image'
         CONTAINER_NAME   = 'test_container'
     }
+    def conatiner
 
     stages {
         /* checkout repo */
@@ -31,10 +32,9 @@ pipeline {
             }
         }
 
-        def conatiner=docker.build("${CONTAINER_NAME}")
         stage("Dockerizing"){
 
-
+            conatiner=docker.build("${CONTAINER_NAME}")
             // steps{
             //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
             //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."

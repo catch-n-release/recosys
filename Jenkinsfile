@@ -45,7 +45,7 @@ node
             catch(exc)
                 {
                     setBuildStatus("Build failed", "FAILURE")
-                    throw
+                    throw exc
                 }
             }
     }

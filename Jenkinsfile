@@ -43,8 +43,8 @@ node
             stage("Dockerizing")
             {
 
-                steps
-                {
+                // steps
+                // {
                 setBuildStatus("Build Started", "PENDING")
                 // script
                 //     {
@@ -64,13 +64,13 @@ node
                 //     // }
                 //     }
 
-                }
+                // }
             }
 
             stage("Installing Requirements")
                 {
-                steps
-                    {
+                // steps
+                //     {
 
                         // script
                         //     {
@@ -92,14 +92,14 @@ node
                     //                 sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                     //             }
                     //     }
-                    }
+                    // }
 
 
                 }
             stage("Running ML Tests")
                 {
-                steps
-                    {
+                // steps
+                //     {
 
                         // container.inside()
                         //         {
@@ -115,17 +115,17 @@ node
                     //         }
                     //     }
                     sh "pytest -m ml"
-                    }
+                    // }
 
 
                 }
 
             stage('Do the deployment')
                 {
-                steps
-                    {
+                // steps
+                //     {
                     echo ">> Run deploy applications "
-                    }
+                    // }
                 }
             // }
 

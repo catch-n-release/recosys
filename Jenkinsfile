@@ -68,7 +68,7 @@ pipeline
 
                 script
                     {
-                        conatiner.image('${CONTAINER_NAME}').run
+                        conatiner.run
                             {
                             sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                             }

@@ -71,11 +71,14 @@ pipeline
             steps
                 {
 
+                    script
+                        {
+                            docker.image("${CONTAINER_NAME}").run()
+                                {
+                                sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                                }
+                        }
 
-                 docker.image("${CONTAINER_NAME}").run()
-                    {
-                        sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                    }
                 // script
                 //     {
                 //         // container.inside

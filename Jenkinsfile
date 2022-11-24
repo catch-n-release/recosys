@@ -1,18 +1,23 @@
 // properties([pipelineTriggers([githubPush()])])
 
-pipeline {
+pipeline
+    {
     /* specify nodes for executing */
-    agent any
-    environment {
-        IMAGE_NAME = 'test_image'
-        CONTAINER_NAME   = 'test_container'
-    }
+        agent any
+        environment
+        {
+            IMAGE_NAME = 'test_image'
+            CONTAINER_NAME   = 'test_container'
+        }
 
     def conatiner
-    stages {
+    stages
+        {
         /* checkout repo */
-        stage('Checkout SCM') {
-            steps {
+        stage('Checkout SCM')
+            {
+            steps
+                {
 
                 // checkout([
                 //  $class: 'GitSCM',
@@ -29,59 +34,73 @@ pipeline {
 
                 // ls
 
+                }
+            }
+
+        stage("Dockerizing")
+        {
+
+            steps
+            {
+            script
+                {
+                conatiner=docker.build("${CONTAINER_NAME}")
+                // steps{
+                //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
+                //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
+                // }
+                // conatiner.inside{
+                //     sh "ls"
+                //                 }
+                // }
+                }
+
             }
         }
 
-        stage("Dockerizing"){
+        stage("Installing Requirements")
+            {
+            steps
+                {
 
-            steps{
-                script{
-                    conatiner=docker.build("${CONTAINER_NAME}")
-                    // steps{
-                    //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
-                    //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
-                    // }
-                    // conatiner.inside{
-                    //     sh "ls"
-                    //                 }
-                    // }
-                }
-
-        }
-
-        stage("Installing Requirements"){
-            steps{
-
-                script{
-                    conatiner.inside{
-                        sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                script
+                    {
+                        conatiner.inside
+                            {
+                            sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                            }
                     }
                 }
+
+
             }
 
-
-        }
-
-        stage('Do the deployment') {
-            steps {
+        stage('Do the deployment')
+            {
+            steps
+                {
                 echo ">> Run deploy applications "
+                }
             }
         }
-    }
 
     /* Cleanup workspace */
-    post {
+    post
+        {
     //   always {
     //       deleteDir()
     //   }
-     success {
-        setBuildStatus("Build succeeded", "SUCCESS");
+     success
+        {
+            setBuildStatus("Build succeeded", "SUCCESS");
+        }
+    failure
+        {
+            setBuildStatus("Build failed", "FAILURE");
+        }
     }
-    failure {
-        setBuildStatus("Build failed", "FAILURE");
-    }
-  }
 }
+
 
 void setBuildStatus(String message, String state) {
   step([

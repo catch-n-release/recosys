@@ -28,7 +28,7 @@ node
                 stage("ML FLUX TESTS")
                     {
 
-                        sh "pytest -v -m ml"
+                        sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
 
 
                     }
@@ -36,7 +36,7 @@ node
                 stage("APP TESTS")
                     {
 
-                        sh "pytest -v -m app"
+                        sh "pytest -v -m app --junitxml=reports/app_result.xml"
                         setBuildStatus("Build succeeded", "SUCCESS")
 
                     }

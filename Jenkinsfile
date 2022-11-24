@@ -11,13 +11,14 @@ pipeline
         }
 
     // def conatiner
+    setBuildStatus("Build Started", "PENDING")
     stages
         {
         /* checkout repo */
-        stage('Checkout SCM')
-            {
-            steps
-                {
+        // stage('Checkout SCM')
+        //     {
+        //     steps
+        //         {
 
                 // checkout([
                 //  $class: 'GitSCM',
@@ -30,12 +31,12 @@ pipeline
                 // //      name: 'build',
                 // //      state: 'pending']],
                 // ])
-                setBuildStatus("Build Started", "PENDING")
+                // setBuildStatus("Build Started", "PENDING")
 
                 // ls
 
-                }
-            }
+            //     }
+            // }
 
         stage("Dockerizing")
         {
@@ -68,6 +69,22 @@ pipeline
                         conatiner.inside
                             {
                             sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                            }
+                    }
+                }
+
+
+            }
+        stage("Running ML Tests")
+            {
+            steps
+                {
+
+                script
+                    {
+                        conatiner.inside
+                            {
+                            sh "pytest -m ml"
                             }
                     }
                 }

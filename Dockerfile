@@ -14,23 +14,22 @@ ENV APP_MODULE app:/recosys/app
 
 COPY --from=requirements-stage /tmp/requirements.txt /recosys/requirements.txt
 
-RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt
+#RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt
 
-COPY ./pyproject.toml ./poetry.lock* /recosys/
-COPY ./_tests /recosys/_tests
-COPY ./app /recosys/app
-COPY ./data /recosys/data
-COPY ./ml /recosys/ml
-COPY ./utils /recosys/utils
+#COPY ./pyproject.toml ./poetry.lock* /recosys/
+#COPY ./_tests /recosys/_tests
+#COPY ./app /recosys/app
+#COPY ./data /recosys/data
+#COPY ./ml /recosys/ml
+#COPY ./utils /recosys/utils
 
-WORKDIR /recosys
+#WORKDIR /recosys
 
-RUN mkdir reports
+#RUN mkdir reports
 
 #CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "80"]
 
-RUN ["pytest", "-v","-m","not app", "--junitxml=reports/ml_result.xml"]
-RUN ["pytest", "-v","-m","app","--cov", "--junitxml=reports/app_result.xml"]
+#RUN ["pytest", "-v","-m","not app", "--junitxml=reports/ml_result.xml"]
+#RUN ["pytest", "-v","-m","app","--cov", "--junitxml=reports/app_result.xml"]
 
-
-CMD tail -f /dev/null
+#CMD tail -f /dev/null

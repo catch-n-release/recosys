@@ -10,7 +10,7 @@ pipeline
             CONTAINER_NAME   = 'test_container'
         }
 
-    def container
+    // def container
 
     stages
         {
@@ -93,13 +93,18 @@ pipeline
             steps
                 {
 
-                script
-                    {
-                        container.inside
+                    container.inside()
                             {
                             sh "pytest -m ml"
                             }
-                    }
+
+                // script
+                //     {
+                //         container.inside
+                //             {
+                //             sh "pytest -m ml"
+                //             }
+                //     }
                 }
 
 

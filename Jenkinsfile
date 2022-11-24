@@ -8,17 +8,17 @@ pipeline {
         stage('Checkout SCM') {
             steps {
 
-                checkout([
-                 $class: 'GitSCM',
-                 branches: [[name: 'testing']],
-                 userRemoteConfigs: [[
-                    url: 'https://github.com/catch-n-release/recosys.git',
-                    credentialsId: 'recosys0001_Wusername',
-                 ]]
-                //  updateGitlabCommitStatus: [[
-                //      name: 'build',
-                //      state: 'pending']],
-                ])
+                // checkout([
+                //  $class: 'GitSCM',
+                //  branches: [[name: 'testing']],
+                //  userRemoteConfigs: [[
+                //     url: 'https://github.com/catch-n-release/recosys.git',
+                //     credentialsId: 'recosys0001_Wusername',
+                //  ]]
+                // //  updateGitlabCommitStatus: [[
+                // //      name: 'build',
+                // //      state: 'pending']],
+                // ])
                 setBuildStatus("Build Started", "PENDING")
 
                 // ls

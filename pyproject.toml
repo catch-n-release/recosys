@@ -36,8 +36,10 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 
-markers = ["raw_df: test using unprocessed dataframe.",
-            "clean_df: test using a processed dataframe.",]
+markers = [ "raw_df: test using unprocessed dataframe.",
+            "clean_df: test using a processed dataframe.",
+            "app: API Tests.",
+            "ml: ML Flux Tests",]
 
 [tool.logging]
 version = 1

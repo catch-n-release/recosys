@@ -1,148 +1,150 @@
 // properties([pipelineTriggers([githubPush()])])
-def container
-pipeline
+// def container
+node
     {
     /* specify nodes for executing */
-        agent any
-        environment
-        {
-            IMAGE_NAME = 'test_image'
-            CONTAINER_NAME   = 'test_container'
-        }
+        // agent any
+        // environment
+        // {
+        //     IMAGE_NAME = 'test_image'
+        //     CONTAINER_NAME   = 'test_container'
+        // }
 
 
 
     // def container
-
-    stages
-        {
-
-
-        /* checkout repo */
-        // stage('Checkout SCM')
-        //     {
-        //     steps
-        //         {
-
-                // checkout([
-                //  $class: 'GitSCM',
-                //  branches: [[name: 'testing']],
-                //  userRemoteConfigs: [[
-                //     url: 'https://github.com/catch-n-release/recosys.git',
-                //     credentialsId: 'recosys0001_Wusername',
-                //  ]]
-                // //  updateGitlabCommitStatus: [[
-                // //      name: 'build',
-                // //      state: 'pending']],
-                // ])
-                // setBuildStatus("Build Started", "PENDING")
-
-                // ls
-
-            //     }
-            // }
-
-        stage("Dockerizing")
-        {
-
-            steps
+    container=docker.build("${IMAGE_NAME}")
+    container.inside(){
+        stages
             {
-            setBuildStatus("Build Started", "PENDING")
-            script
-                {
-                container=docker.build("${CONTAINER_NAME}")
-                // docker.image("${CONTAINER_NAME}").run()
-                //     {
-                //         sh ""
+
+
+            /* checkout repo */
+            // stage('Checkout SCM')
+            //     {
+            //     steps
+            //         {
+
+                    // checkout([
+                    //  $class: 'GitSCM',
+                    //  branches: [[name: 'testing']],
+                    //  userRemoteConfigs: [[
+                    //     url: 'https://github.com/catch-n-release/recosys.git',
+                    //     credentialsId: 'recosys0001_Wusername',
+                    //  ]]
+                    // //  updateGitlabCommitStatus: [[
+                    // //      name: 'build',
+                    // //      state: 'pending']],
+                    // ])
+                    // setBuildStatus("Build Started", "PENDING")
+
+                    // ls
+
                 //     }
-
-                // steps{
-                //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
-                //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
                 // }
-                // conatiner.inside{
-                //     sh "ls"
-                //                 }
-                // }
-                }
 
-            }
-        }
-
-        stage("Installing Requirements")
+            stage("Dockerizing")
             {
-            steps
+
+                steps
                 {
+                setBuildStatus("Build Started", "PENDING")
+                script
+                    {
+                    container=docker.build("${CONTAINER_NAME}")
+                    // docker.image("${CONTAINER_NAME}").run()
+                    //     {
+                    //         sh ""
+                    //     }
+
+                    // steps{
+                    //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
+                    //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
+                    // }
+                    // conatiner.inside{
+                    //     sh "ls"
+                    //                 }
+                    // }
+                    }
+
+                }
+            }
+
+            stage("Installing Requirements")
+                {
+                steps
+                    {
+
+                        script
+                            {
+                                // docker.image("${CONTAINER_NAME}").run()
+                                container.run()
+                                    {
+                                    sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                                    }
+                            }
+
+                    // script
+                    //     {
+                    //         // container.inside
+                    //         //     {
+                    //         //     sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                    //         //     }
+                    //         docker.image("${CONTAINER_NAME}").run
+                    //             {
+                    //                 sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                    //             }
+                    //     }
+                    }
+
+
+                }
+            stage("Running ML Tests")
+                {
+                steps
+                    {
+
+                        // container.inside()
+                        //         {
+                        //         sh "pytest -m ml"
+                        //         }
 
                     script
                         {
                             // docker.image("${CONTAINER_NAME}").run()
                             container.run()
-                                {
-                                sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                                }
-                        }
-
-                // script
-                //     {
-                //         // container.inside
-                //         //     {
-                //         //     sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                //         //     }
-                //         docker.image("${CONTAINER_NAME}").run
-                //             {
-                //                 sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                //             }
-                //     }
-                }
-
-
-            }
-        stage("Running ML Tests")
-            {
-            steps
-                {
-
-                    // container.inside()
-                    //         {
-                    //         sh "pytest -m ml"
-                    //         }
-
-                script
-                    {
-                        // docker.image("${CONTAINER_NAME}").run()
-                        container.run()
-                        {
-                            sh "pytest -m ml"
+                            {
+                                sh "pytest -m ml"
+                            }
                         }
                     }
+
+
                 }
 
-
-            }
-
-        stage('Do the deployment')
-            {
-            steps
+            stage('Do the deployment')
                 {
-                echo ">> Run deploy applications "
+                steps
+                    {
+                    echo ">> Run deploy applications "
+                    }
                 }
             }
-        }
 
-    /* Cleanup workspace */
-    post
-        {
-    //   always {
-    //       deleteDir()
-    //   }
-     success
-        {
-            setBuildStatus("Build succeeded", "SUCCESS");
-        }
-    failure
-        {
-            setBuildStatus("Build failed", "FAILURE");
+        /* Cleanup workspace */
+        post
+            {
+        //   always {
+        //       deleteDir()
+        //   }
+         success
+            {
+                setBuildStatus("Build succeeded", "SUCCESS");
+            }
+        failure
+            {
+                setBuildStatus("Build failed", "FAILURE");
+            }
         }
     }
 }

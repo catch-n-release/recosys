@@ -19,7 +19,7 @@ node
 
                 stage("ENVIRONMENT SETUP")
                     {
-                        sh "pytest ml"
+
                         sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
 
 

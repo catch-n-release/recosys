@@ -31,7 +31,7 @@ pipeline {
             }
         }
 
-        conatiner=docker.build("${CONTAINER_NAME}")
+        def conatiner=docker.build("${CONTAINER_NAME}")
         stage("Dockerizing"){
 
 

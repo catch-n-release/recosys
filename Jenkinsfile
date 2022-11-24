@@ -47,7 +47,7 @@ pipeline
             setBuildStatus("Build Started", "PENDING")
             // script
             //     {
-            container=docker.build("${CONTAINER_NAME}")
+            def container=docker.build("${CONTAINER_NAME}")
                 // docker.image().run
 
                 // steps{

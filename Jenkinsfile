@@ -4,7 +4,7 @@ node
     {
     /* specify nodes for executing */
         // agent any
-        environment
+        env
         {
             IMAGE_NAME = 'test_image'
             CONTAINER_NAME   = 'test_container'
@@ -13,7 +13,7 @@ node
 
 
     // def container
-    container=docker.build("${IMAGE_NAME}")
+    container=docker.build(env.IMAGE_NAME)
     container.inside(){
         stages
             {

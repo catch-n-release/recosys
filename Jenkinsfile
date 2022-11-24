@@ -3,7 +3,7 @@
 pipeline
     {
     /* specify nodes for executing */
-        agent
+        agent any
         environment
         {
             IMAGE_NAME = 'test_image'

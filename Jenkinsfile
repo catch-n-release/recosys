@@ -35,7 +35,7 @@ pipeline {
 
             steps{
                 script{
-                    conatiner=docker.build("${}")
+                    conatiner=docker.build("${CONTAINER_NAME}")
                     // steps{
                     //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
                     //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
@@ -49,10 +49,10 @@ pipeline {
         }
 
         stage("Running Container"){
-            steps{
+            // steps{
 
-                sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
-            }
+            //     sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+            // }
 
 
         }

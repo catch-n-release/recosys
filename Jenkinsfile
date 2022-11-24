@@ -47,7 +47,9 @@ pipeline
             setBuildStatus("Build Started", "PENDING")
             script
                 {
-                conatiner=docker.build("${CONTAINER_NAME}")
+                docker.build("${CONTAINER_NAME}")
+                // docker.image().run
+
                 // steps{
                 //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
                 //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
@@ -68,9 +70,13 @@ pipeline
 
                 script
                     {
-                        conatiner.run
+                        // container.inside
+                        //     {
+                        //     sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                        //     }
+                        docker.image("${CONTAINER_NAME}").run
                             {
-                            sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                                sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                             }
                     }
                 }
@@ -84,7 +90,7 @@ pipeline
 
                 script
                     {
-                        conatiner.image('${CONTAINER_NAME}').run
+                        container.inside
                             {
                             sh "pytest -m ml"
                             }

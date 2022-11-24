@@ -1,8 +1,8 @@
 // properties([pipelineTriggers([githubPush()])])
 // def container
+setBuildStatus("Build Started", "PENDING")
 node
     {
-        setBuildStatus("Build Started", "PENDING")
     /* specify nodes for executing */
         // agent any
         env.IMAGE_NAME = 'test_image'
@@ -17,26 +17,26 @@ node
             try
                 {
 
-                stage("Installing Requirements")
+                stage("ENVIRONMENT SETUP")
                     {
-
+                        sh hello
                         sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
 
 
                     }
-                stage("Running ML Tests")
+                stage("ML TESTS")
                     {
 
                         sh "pytest -m ml"
 
-                        setBuildStatus("Build succeeded", "SUCCESS")
 
                     }
 
-                stage('Do the deployment')
+                stage("APP TESTS")
                     {
 
-                        echo ">> Run deploy applications "
+                        sh "pytest -m app"
+                        setBuildStatus("Build succeeded", "SUCCESS")
 
                     }
                 }

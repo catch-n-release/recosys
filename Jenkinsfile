@@ -4,11 +4,11 @@ node
     {
     /* specify nodes for executing */
         // agent any
-        // environment
-        // {
-        //     IMAGE_NAME = 'test_image'
-        //     CONTAINER_NAME   = 'test_container'
-        // }
+        environment
+        {
+            IMAGE_NAME = 'test_image'
+            CONTAINER_NAME   = 'test_container'
+        }
 
 
 

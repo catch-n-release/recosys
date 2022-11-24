@@ -1,4 +1,4 @@
-properties([pipelineTriggers([githubPush()])])
+// properties([pipelineTriggers([githubPush()])])
 
 pipeline {
     /* specify nodes for executing */
@@ -33,10 +33,13 @@ pipeline {
 
         stage("Dockerizing"){
 
-            steps{
-                sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
-                sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
-            }
+            conatiner=docker.build()
+            // steps{
+            //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
+            //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
+            // }
+            conatiner.inside(
+                sh "ls")
 
         }
 

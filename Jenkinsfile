@@ -21,13 +21,14 @@ node
                     {
 
                         sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                        sh "mkdir reports"
 
 
                     }
                 stage("ML FLUX TESTS")
                     {
 
-                        sh "pytest -m ml"
+                        sh "pytest -v -m ml"
 
 
                     }

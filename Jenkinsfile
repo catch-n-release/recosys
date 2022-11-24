@@ -3,15 +3,16 @@
 pipeline
     {
     /* specify nodes for executing */
-        agent
-            {
-                any
-                def container
-            }
+        agent any
         environment
         {
             IMAGE_NAME = 'test_image'
             CONTAINER_NAME   = 'test_container'
+        }
+
+        script
+        {
+            def container
         }
 
     // def container

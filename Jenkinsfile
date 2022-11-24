@@ -113,7 +113,7 @@ pipeline
                         // docker.image("${CONTAINER_NAME}").run()
                         container.inside()
                         {
-                            sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                            sh "pytest -m ml"
                         }
                     }
                 }

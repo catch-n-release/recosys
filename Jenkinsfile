@@ -48,14 +48,14 @@ pipeline {
 
         }
 
-        stage("Running Container"){
-            // steps{
+        // stage("Running Container"){
+        //     // steps{
 
-            //     sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
-            // }
+        //     //     sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+        //     // }
 
 
-        }
+        // }
 
         stage('Do the deployment') {
             steps {

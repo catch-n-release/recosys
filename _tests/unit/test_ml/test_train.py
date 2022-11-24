@@ -1,5 +1,9 @@
-from ml import train
 from pathlib import Path
+
+from ml import train
+from test_ml import pytestmark
+
+pytestmark
 
 
 def test_train(app_config):

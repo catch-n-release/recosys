@@ -39,7 +39,7 @@ pipeline {
     //       deleteDir()
     //   }
      success {
-        setBuildStatus("Build succeeded", "SUCCESS");
+        setBuildStatus("Build succeeded", "PENDING");
     }
     failure {
         setBuildStatus("Build failed", "FAILURE");

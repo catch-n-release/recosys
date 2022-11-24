@@ -1,5 +1,5 @@
 // properties([pipelineTriggers([githubPush()])])
-setBuildStatus("Build Started", "PENDING")
+
 pipeline
     {
     /* specify nodes for executing */
@@ -11,7 +11,7 @@ pipeline
         }
 
     // def conatiner
-
+    setBuildStatus("Build Started", "PENDING")
     stages
         {
         /* checkout repo */

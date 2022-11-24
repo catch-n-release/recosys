@@ -11,9 +11,10 @@ pipeline
         }
 
     // def conatiner
-    setBuildStatus("Build Started", "PENDING")
+
     stages
         {
+            setBuildStatus("Build Started", "PENDING")
         /* checkout repo */
         // stage('Checkout SCM')
         //     {

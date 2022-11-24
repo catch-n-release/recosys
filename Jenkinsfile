@@ -3,14 +3,14 @@
 pipeline
     {
     /* specify nodes for executing */
-        agent any
+        agent
         environment
         {
             IMAGE_NAME = 'test_image'
             CONTAINER_NAME   = 'test_container'
         }
 
-    // def conatiner
+    def container
 
     stages
         {
@@ -45,9 +45,9 @@ pipeline
             steps
             {
             setBuildStatus("Build Started", "PENDING")
-            script
-                {
-                docker.build("${CONTAINER_NAME}")
+            // script
+            //     {
+                container=docker.build "${CONTAINER_NAME}"
                 // docker.image().run
 
                 // steps{
@@ -58,7 +58,7 @@ pipeline
                 //     sh "ls"
                 //                 }
                 // }
-                }
+                // }
 
             }
         }
@@ -68,17 +68,22 @@ pipeline
             steps
                 {
 
-                script
+
+                 container.inside()
                     {
-                        // container.inside
-                        //     {
-                        //     sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                        //     }
-                        docker.image("${CONTAINER_NAME}").run
-                            {
-                                sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                            }
+                        sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                     }
+                // script
+                //     {
+                //         // container.inside
+                //         //     {
+                //         //     sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                //         //     }
+                //         docker.image("${CONTAINER_NAME}").run
+                //             {
+                //                 sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                //             }
+                //     }
                 }
 
 

@@ -17,7 +17,7 @@ node
             try
                 {
 
-                stage("ENVIRONMENT SETUP")
+                stage("SETTING ENVIRONMENT")
                     {
 
                         sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
@@ -25,7 +25,7 @@ node
 
 
                     }
-                stage("ML FLUX TESTS")
+                stage("TESTING ML FLUX")
                     {
 
                         sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
@@ -33,12 +33,16 @@ node
 
                     }
 
-                stage("APP TESTS")
+                stage("TESTING APP")
                     {
 
                         sh "pytest -v -m app --junitxml=reports/app_result.xml"
                         setBuildStatus("Build succeeded", "SUCCESS")
 
+                    }
+                stage("EXPORTING RESULTS")
+                    {
+                        sh "cp -r $PWD/reports /reports"
                     }
                 }
 
@@ -49,6 +53,10 @@ node
                     throw exc
                 }
             }
+            stage("PUBLISHING RESULTS")
+                {
+                    junit '**/reports/*.xml'
+                }
     }
 
 

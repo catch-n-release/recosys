@@ -42,7 +42,7 @@ node
                     }
                 stage("EXPORTING RESULTS")
                     {
-                        sh "cp -r $PWD/reports /reports"
+                        sh "cp -r reports /reports"
                     }
                 }
 

@@ -45,10 +45,13 @@ pipeline
             steps
             {
             setBuildStatus("Build Started", "PENDING")
-            // script
-            //     {
-            def container=docker.build("${CONTAINER_NAME}")
-                // docker.image().run
+            script
+                {
+                docker.build("${CONTAINER_NAME}")
+                // docker.image("${CONTAINER_NAME}").run()
+                //     {
+                //         sh ""
+                //     }
 
                 // steps{
                 //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
@@ -69,7 +72,7 @@ pipeline
                 {
 
 
-                 container.inside()
+                 docker.image("${CONTAINER_NAME}").run()
                     {
                         sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                     }

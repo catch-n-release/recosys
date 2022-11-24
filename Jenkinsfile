@@ -36,7 +36,7 @@ node
                 stage("APP TESTS")
                     {
 
-                        sh "pytest -m app"
+                        sh "pytest -v -m app"
                         setBuildStatus("Build succeeded", "SUCCESS")
 
                     }

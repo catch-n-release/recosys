@@ -3,6 +3,11 @@ properties([pipelineTriggers([githubPush()])])
 pipeline {
     /* specify nodes for executing */
     agent any
+    environment {
+        IMAGE_NAME = 'test_image'
+        CONTAINER_NAME   = 'test_container'
+    }
+
     stages {
         /* checkout repo */
         stage('Checkout SCM') {
@@ -29,9 +34,14 @@ pipeline {
         stage("Dockerizing"){
 
             steps{
-                sh "pwd"
-                sh "ls"
+                sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
+                sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
             }
+
+        }
+
+        stage("Running Container"){
+            sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
 
         }
 
@@ -48,7 +58,7 @@ pipeline {
     //       deleteDir()
     //   }
      success {
-        setBuildStatus("Build succeeded", "PENDING");
+        setBuildStatus("Build succeeded", "SUCCESS");
     }
     failure {
         setBuildStatus("Build failed", "FAILURE");

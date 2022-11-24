@@ -4,16 +4,13 @@ node
     {
     /* specify nodes for executing */
         // agent any
-        env
-        {
-            IMAGE_NAME = 'test_image'
-            CONTAINER_NAME   = 'test_container'
-        }
+        env.IMAGE_NAME = 'test_image'
+        env.CONTAINER_NAME   = 'test_container'
 
 
 
     // def container
-    container=docker.build(env.IMAGE_NAME)
+    container=docker.build("${env.BUILD_ID}")
     container.inside(){
         stages
             {
@@ -49,23 +46,23 @@ node
                 steps
                 {
                 setBuildStatus("Build Started", "PENDING")
-                script
-                    {
-                    container=docker.build("${CONTAINER_NAME}")
-                    // docker.image("${CONTAINER_NAME}").run()
-                    //     {
-                    //         sh ""
-                    //     }
+                // script
+                //     {
+                //     container=docker.build("${CONTAINER_NAME}")
+                //     // docker.image("${CONTAINER_NAME}").run()
+                //     //     {
+                //     //         sh ""
+                //     //     }
 
-                    // steps{
-                    //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
-                    //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
-                    // }
-                    // conatiner.inside{
-                    //     sh "ls"
-                    //                 }
-                    // }
-                    }
+                //     // steps{
+                //     //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
+                //     //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
+                //     // }
+                //     // conatiner.inside{
+                //     //     sh "ls"
+                //     //                 }
+                //     // }
+                //     }
 
                 }
             }
@@ -75,15 +72,15 @@ node
                 steps
                     {
 
-                        script
-                            {
-                                // docker.image("${CONTAINER_NAME}").run()
-                                container.run()
-                                    {
-                                    sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                                    }
-                            }
-
+                        // script
+                        //     {
+                        //         // docker.image("${CONTAINER_NAME}").run()
+                        //         container.run()
+                        //             {
+                        //             sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                        //             }
+                        //     }
+                        sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                     // script
                     //     {
                     //         // container.inside
@@ -109,14 +106,15 @@ node
                         //         sh "pytest -m ml"
                         //         }
 
-                    script
-                        {
-                            // docker.image("${CONTAINER_NAME}").run()
-                            container.run()
-                            {
-                                sh "pytest -m ml"
-                            }
-                        }
+                    // script
+                    //     {
+                    //         // docker.image("${CONTAINER_NAME}").run()
+                    //         container.run()
+                    //         {
+                    //             sh "pytest -m ml"
+                    //         }
+                    //     }
+                    sh "pytest -m ml"
                     }
 
 

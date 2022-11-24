@@ -96,18 +96,18 @@ pipeline
             steps
                 {
 
-                    container.inside()
-                            {
-                            sh "pytest -m ml"
-                            }
+                    // container.inside()
+                    //         {
+                    //         sh "pytest -m ml"
+                    //         }
 
-                // script
-                //     {
-                //         container.inside
-                //             {
-                //             sh "pytest -m ml"
-                //             }
-                //     }
+                script
+                    {
+                        docker.image("${CONTAINER_NAME}").run()
+                        {
+                            sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                        }
+                    }
                 }
 
 

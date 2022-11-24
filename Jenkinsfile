@@ -8,6 +8,7 @@ pipeline {
         CONTAINER_NAME   = 'test_container'
     }
 
+    def conatiner
     stages {
         /* checkout repo */
         stage('Checkout SCM') {
@@ -40,10 +41,10 @@ pipeline {
                     //     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
                     //     sh "docker build -t ${IMAGE_NAME} --progress=plain --no-cache ."
                     // }
-                    conatiner.inside{
-                        sh "ls"
-                                    }
-                    }
+                    // conatiner.inside{
+                    //     sh "ls"
+                    //                 }
+                    // }
                 }
 
         }
@@ -53,7 +54,7 @@ pipeline {
 
                 script{
                     conatiner.inside{
-                        sh "RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                        sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                     }
                 }
             }

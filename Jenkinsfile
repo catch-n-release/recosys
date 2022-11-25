@@ -48,19 +48,19 @@ node
 
                     }
 
-                stage("DEPLOYING IMAGE")
-                {
+                // stage("DEPLOYING IMAGE")
+                // {
 
-                withDockerRegistry([credentialsId: "dockerHub"])
+                // withDockerRegistry([credentialsId: "dockerHub"])
 
-                    {
+                //     {
 
-                    recosysImage.push()
+                //     recosysImage.push()
 
-                    }
-                }
+                //     }
+                // }
 
-                }
+                // }
 
             stage("PUBLISHING RESULTS")
                 {

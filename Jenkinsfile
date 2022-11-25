@@ -26,7 +26,7 @@ node
 
                     {
                     sh "pwd"
-                    sh "ls"
+                    sh "ls app/"
                     sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
 
                     }

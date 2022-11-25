@@ -65,8 +65,7 @@ node
 
             stage("PUBLISHING RESULTS")
                 {
-                    junit skipPublishingChecks: true,
-                    testResults: '**/reports/*.xml'
+                    junit  '**/reports/*.xml'
 
                     setBuildStatus("Build succeeded", "SUCCESS")
                 }

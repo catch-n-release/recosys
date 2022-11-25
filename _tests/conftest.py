@@ -9,6 +9,7 @@ import pandas as pd
 from deepchecks.tabular.dataset import Dataset
 import tomli as toml
 from omegaconf import OmegaConf
+import pathlib
 
 
 @pytest.fixture(scope="session")
@@ -213,3 +214,13 @@ async def client():
         async with httpx.AsyncClient(app=app,
                                      base_url="http://app.io") as client:
             yield client
+
+
+def pytest_collection_modifyitems(config, items):
+    rootdir = pathlib.Path(config.rootdir)
+    for item in items:
+        rel_path = pathlib.Path(item.fspath).relative_to(rootdir)
+        mark_name = rel_path.parts[2].split("_")[1]
+        if mark_name:
+            mark = getattr(pytest.mark, mark_name)
+            item.add_marker(mark)

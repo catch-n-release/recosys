@@ -9,9 +9,6 @@ from app.models import (
     RecommendationOuput,
     MovieRecommender,
 )
-from test_app import appmark
-
-appmark
 
 
 def test_user(random_user_id):

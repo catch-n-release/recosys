@@ -1,5 +1,6 @@
 // properties([pipelineTriggers([githubPush()])])
 // def container
+cleanWs()
 node
     {
     /* specify nodes for executing */

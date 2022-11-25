@@ -6,7 +6,7 @@ node
         // agent any
     setBuildStatus("Build Started", "PENDING")
     env.ImageName = "snsrivas/recosys"
-
+    sh "ls"
 // def container
     recosysImage=docker.build("${env.ImageName}:latest")
         try

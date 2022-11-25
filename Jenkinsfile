@@ -4,60 +4,67 @@ node
     {
     /* specify nodes for executing */
         // agent any
-        setBuildStatus("Build Started", "PENDING")
-        env.IMAGE_NAME = 'test_image'
-        env.CONTAINER_NAME   = 'test_container'
+    setBuildStatus("Build Started", "PENDING")
+    env.ImageName = "snsrivas/recosys"
 
-
-
-    // def container
-        container=docker.build("${env.BUILD_ID}")
-            try
+// def container
+    recosysImage=docker.build("${env.ImageName}:latest")
+        try
+            {
+            recosysImage.inside()
                 {
-                    container.inside()
-                        {
+
+                stage("SETTING ENVIRONMENT")
+
+                    {
+                    sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                    sh "rm -rf reports && mkdir reports"
+                    }
+
+                stage("TESTING ML FLUX")
+
+                    {
+
+                    sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
+
+                    }
+
+                stage("TESTING APP")
+
+                    {
+
+                    sh "pytest -v -m app --junitxml=reports/app_result.xml"
 
 
-                            stage("SETTING ENVIRONMENT")
-                                {
+                    }
+                stage("EXPORTING RESULTS")
+                    {
 
-                                    sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                                    sh "rm -rf reports && mkdir reports"
+                    sh "cp -r reports /reports"
 
-
-                                }
-                            stage("TESTING ML FLUX")
-                                {
-
-                                    sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
-
-
-                                }
-
-                            stage("TESTING APP")
-                                {
-
-                                    sh "pytest -v -m app --junitxml=reports/app_result.xml"
-                                    setBuildStatus("Build succeeded", "SUCCESS")
-
-                                }
-                            stage("EXPORTING RESULTS")
-                                {
-                                    sh "cp -r reports /reports"
-                                }
-                        }
-                    stage("PUBLISHING RESULTS")
-                        {
-                            junit '**/reports/*.xml'
-                        }
+                    }
                 }
 
-            catch(exc)
+            stage("DEPLOYING IMAGE")
                 {
-                    setBuildStatus("Build failed", "FAILURE")
-                    throw exc
+                withDockerRegistry([credentialsId: "dockerHub"])
+                    {
+                    recosysImage.push()
+                    }
                 }
 
+            stage("PUBLISHING RESULTS")
+                {
+                    junit '**/reports/*.xml'
+                    setBuildStatus("Build succeeded", "SUCCESS")
+                }
+            }
+
+        catch(exc)
+            {
+                setBuildStatus("Build failed", "FAILURE")
+                throw exc
+            }
     }
 
 

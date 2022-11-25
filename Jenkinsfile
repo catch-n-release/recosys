@@ -1,17 +1,14 @@
 // properties([pipelineTriggers([githubPush()])])
 // def container
-
 node
     {
     /* specify nodes for executing */
         // agent any
-    checkout scm
     setBuildStatus("Build Started", "PENDING")
     env.ImageName = "snsrivas/recosys"
-    sh "pwd"
-    sh "ls -a"
+
 // def container
-    recosysImage=docker.build("${env.ImageName}:${env.BUILD_ID}")
+    recosysImage=docker.build("${env.ImageName}:latest")
         try
             {
             recosysImage.inside()
@@ -20,11 +17,8 @@ node
                 stage("SETTING ENVIRONMENT")
 
                     {
-
                     sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-
                     sh "rm -rf reports && mkdir reports"
-
                     }
 
                 stage("TESTING ML FLUX")
@@ -51,23 +45,23 @@ node
 
                     }
 
-                // stage("DEPLOYING IMAGE")
-                // {
+                stage("DEPLOYING IMAGE")
+                {
 
-                // withDockerRegistry([credentialsId: "dockerHub"])
+                withDockerRegistry([credentialsId: "dockerHub"])
 
-                //     {
+                    {
 
-                //     recosysImage.push()
+                    recosysImage.push()
 
-                //     }
-                // }
+                    }
+                }
 
                 }
 
             stage("PUBLISHING RESULTS")
                 {
-                    junit  '**/reports/*.xml'
+                    junit '**/reports/*.xml'
                     setBuildStatus("Build succeeded", "SUCCESS")
                 }
             }

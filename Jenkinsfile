@@ -5,7 +5,7 @@ node
     {
     /* specify nodes for executing */
         // agent any
-    cleanWs()
+
     setBuildStatus("Build Started", "PENDING")
     env.ImageName = "snsrivas/recosys"
     sh "pwd"

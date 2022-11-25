@@ -12,51 +12,54 @@ node
 
     // def container
         container=docker.build("${env.BUILD_ID}")
-        container.inside()
-            {
             try
                 {
-
-                stage("SETTING ENVIRONMENT")
-                    {
-
-                        sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
-                        sh "rm -rf reports && mkdir reports"
+                    container.inside()
+                        {
 
 
-                    }
-                stage("TESTING ML FLUX")
-                    {
+                            stage("SETTING ENVIRONMENT")
+                                {
 
-                        sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
+                                    sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                                    sh "rm -rf reports && mkdir reports"
 
 
-                    }
+                                }
+                            stage("TESTING ML FLUX")
+                                {
 
-                stage("TESTING APP")
-                    {
+                                    sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
 
-                        sh "pytest -v -m app --junitxml=reports/app_result.xml"
-                        setBuildStatus("Build succeeded", "SUCCESS")
 
-                    }
-                stage("EXPORTING RESULTS")
-                    {
-                        sh "cp -r reports /reports"
-                    }
+                                }
+
+                            stage("TESTING APP")
+                                {
+
+                                    sh "pytest -v -m app --junitxml=reports/app_result.xml"
+                                    setBuildStatus("Build succeeded", "SUCCESS")
+
+                                }
+                            stage("EXPORTING RESULTS")
+                                {
+                                    sh "cp -r reports /reports"
+                                }
+                        }
+                    stage("PUBLISHING RESULTS")
+                        {
+                            junit '**/reports/*.xml'
+                        }
                 }
-
 
             catch(exc)
                 {
                     setBuildStatus("Build failed", "FAILURE")
                     throw exc
                 }
-            }
-            stage("PUBLISHING RESULTS")
-                {
-                    junit '**/reports/*.xml'
-                }
+
+
+
     }
 
 

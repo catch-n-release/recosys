@@ -66,7 +66,6 @@ node
             stage("PUBLISHING RESULTS")
                 {
                     junit  '**/reports/*.xml'
-
                     setBuildStatus("Build succeeded", "SUCCESS")
                 }
             }

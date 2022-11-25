@@ -7,6 +7,7 @@ node
     setBuildStatus("Build Started", "PENDING")
     env.ImageName = "snsrivas/recosys"
     sh "pwd"
+    sh "ls"
 // def container
     recosysImage=docker.build("${env.ImageName}:${env.BUILD_ID}")
         try

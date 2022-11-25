@@ -1,9 +1,9 @@
 from pathlib import Path
 
 from ml import train
-from test_ml import pytestmark
+from test_ml import mlmark
 
-pytestmark
+mlmark
 
 
 def test_train(app_config):

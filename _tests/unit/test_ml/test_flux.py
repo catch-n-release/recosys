@@ -1,7 +1,7 @@
 from ml import init_flux
-from test_ml import pytestmark
+from test_ml import mlmark
 
-pytestmark
+mlmark
 
 
 def test_flux():

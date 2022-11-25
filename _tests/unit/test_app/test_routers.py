@@ -4,9 +4,9 @@ import pytest
 import httpx
 from fastapi import status
 from typing import List
-from test_app import pytestmark
+from test_app import appmark
 
-pytestmark
+appmark
 
 
 @pytest.mark.asyncio

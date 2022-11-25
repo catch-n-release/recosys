@@ -1,7 +1,7 @@
 from ml.sifts import run_data_integrity_suite
-from test_ml import pytestmark
+from test_ml import mlmark
 
-pytestmark
+mlmark
 
 
 def test_data_integrity_suite():

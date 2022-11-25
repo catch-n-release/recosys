@@ -1,7 +1,7 @@
 from ml.sifts import run_predictor_eval_suite
-from test_ml import pytestmark
+from test_ml import mlmark
 
-pytestmark
+mlmark
 
 
 def test_predictor_eval_suite():

@@ -1,9 +1,9 @@
 from pathlib import Path
 
 from ml import preprocess_dataset
-from test_ml import pytestmark
+from test_ml import mlmark
 
-pytestmark
+mlmark
 
 
 def test_preprocess_dataset(app_config):

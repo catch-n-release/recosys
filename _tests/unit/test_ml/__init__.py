@@ -1,3 +1,3 @@
 import pytest
 
-pytestmark = pytest.mark.ml
+mlmark = pytest.mark.ml

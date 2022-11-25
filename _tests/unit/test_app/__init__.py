@@ -1,3 +1,3 @@
 import pytest
 
-pytestmark = pytest.mark.app
+appmark = pytest.mark.app

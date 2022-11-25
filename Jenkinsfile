@@ -60,7 +60,7 @@ node
                 //     }
                 // }
 
-                // }
+                }
 
             stage("PUBLISHING RESULTS")
                 {

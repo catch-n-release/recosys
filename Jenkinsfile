@@ -66,6 +66,7 @@ node
                 {
                     junit skipPublishingChecks: true,
                     testResults: '**/reports/*.xml'
+
                     setBuildStatus("Build succeeded", "SUCCESS")
                 }
             }

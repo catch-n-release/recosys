@@ -17,8 +17,11 @@ node
                 stage("SETTING ENVIRONMENT")
 
                     {
+
                     sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+
                     sh "rm -rf reports && mkdir reports"
+
                     }
 
                 stage("TESTING ML FLUX")

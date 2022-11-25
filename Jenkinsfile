@@ -4,7 +4,7 @@ node
     {
     /* specify nodes for executing */
         // agent any
-        // setBuildStatus("Build Started", "PENDING")
+        setBuildStatus("Build Started", "PENDING")
         env.IMAGE_NAME = 'test_image'
         env.CONTAINER_NAME   = 'test_container'
 
@@ -38,7 +38,7 @@ node
                                 {
 
                                     sh "pytest -v -m app --junitxml=reports/app_result.xml"
-                                    // setBuildStatus("Build succeeded", "SUCCESS")
+                                    setBuildStatus("Build succeeded", "SUCCESS")
 
                                 }
                             stage("EXPORTING RESULTS")
@@ -54,7 +54,7 @@ node
 
             catch(exc)
                 {
-                    // setBuildStatus("Build failed", "FAILURE")
+                    setBuildStatus("Build failed", "FAILURE")
                     throw exc
                 }
 
@@ -63,12 +63,12 @@ node
 
 
 
-// void setBuildStatus(String message, String state) {
-//   step([
-//       $class: "GitHubCommitStatusSetter",
-//       // reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/catch-n-release/recosys.git"],
-//       // contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
-//       // errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
-//       statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
-//   ]);
-// }
+void setBuildStatus(String message, String state) {
+  step([
+      $class: "GitHubCommitStatusSetter",
+      // reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/catch-n-release/recosys.git"],
+      // contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      // errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  ]);
+}

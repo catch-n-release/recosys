@@ -37,20 +37,26 @@ node
 
 
                     }
+
                 stage("EXPORTING RESULTS")
                     {
 
                     sh "cp -r reports /reports"
 
                     }
+
+                stage("DEPLOYING IMAGE")
+                {
+
+                withDockerRegistry([credentialsId: "dockerHub"])
+
+                    {
+
+                    recosysImage.push()
+
+                    }
                 }
 
-            stage("DEPLOYING IMAGE")
-                {
-                withDockerRegistry([credentialsId: "dockerHub"])
-                    {
-                    recosysImage.push()
-                    }
                 }
 
             stage("PUBLISHING RESULTS")

@@ -39,7 +39,8 @@ build-backend = "poetry.core.masonry.api"
 markers = [ "raw_df: test using unprocessed dataframe.",
             "clean_df: test using a processed dataframe.",
             "app: API Tests.",
-            "ml: ML Flux Tests",]
+            "ml: ML Flux Tests",
+            "utils: Utilities Tests."]
 
 [tool.logging]
 version = 1

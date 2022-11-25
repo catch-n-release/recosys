@@ -8,6 +8,7 @@ packages = [
     { include = "app" },
     { include = "_tests" },
     { include = "data" },
+    { include = "ml" },
 ]
 
 [tool.poetry.dependencies]
@@ -35,12 +36,13 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-
+pythonpath = ["."]
 markers = [ "raw_df: test using unprocessed dataframe.",
             "clean_df: test using a processed dataframe.",
             "app: API Tests.",
             "ml: ML Flux Tests",
             "utils: Utilities Tests."]
+
 
 [tool.logging]
 version = 1

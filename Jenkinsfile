@@ -25,10 +25,8 @@ node
                 stage("TESTING ML FLUX")
 
                     {
-                    sh "pwd"
-                    sh "ls app/"
-                    // sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
-                    sh "python -m pytest"
+
+                    sh "python -m pytest -v -m ml --junitxml=reports/ml_result.xml"
 
                     }
 
@@ -36,7 +34,7 @@ node
 
                     {
 
-                    sh "pytest -v -m app --junitxml=reports/app_result.xml"
+                    sh "python -m pytest -v -m app --junitxml=reports/app_result.xml"
 
 
                     }

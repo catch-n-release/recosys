@@ -8,7 +8,7 @@ node
     env.ImageName = "snsrivas/recosys"
 
 // def container
-    recosysImage=docker.build("${env.ImageName}:latest")
+    recosysImage=docker.build("${env.ImageName}:1.0.0.${env.BUILD_ID}")
         try
             {
             recosysImage.inside()

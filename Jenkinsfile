@@ -28,7 +28,7 @@ node
 
                     {
 
-                    sh "python -m pytest -v -m ml --junitxml=reports/ml_result.xml"
+                    sh "pytest -v -m ml --junitxml=reports/ml_result.xml"
 
                     }
 
@@ -36,7 +36,7 @@ node
 
                     {
 
-                    sh "python -m pytest -v -m app --junitxml=reports/app_result.xml"
+                    sh "pytest -v -m app --junitxml=reports/app_result.xml"
 
 
                     }

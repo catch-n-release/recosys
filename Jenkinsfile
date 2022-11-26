@@ -12,15 +12,19 @@ node
 // def container
     try
         {
+        recosysImage=docker.build("${env.ImageName}:1.0.0.${env.BUILD_ID}")
 
-        stage("SETTING ENVIRONMENT")
-            {
-
-            recosysImage=docker.build("${env.ImageName}:1.0.0.${env.BUILD_ID}")
-
-            }
         recosysImage.inside()
             {
+
+            stage("SETTING ENVIRONMENT")
+
+                {
+
+                sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+                sh "rm -rf reports && mkdir reports"
+
+                }
 
             stage("TESTING UTILITIES")
 
@@ -57,11 +61,10 @@ node
 
         stage("PUBLISHING RESULTS")
             {
-
-            junit '**/reports/*.xml'
-            setBuildStatus("Build succeeded", "SUCCESS")
-
+                junit '**/reports/*.xml'
+                setBuildStatus("Build succeeded", "SUCCESS")
             }
+
         stage("DEPLOYING IMAGE")
             {
 
@@ -74,14 +77,13 @@ node
                 }
             }
         }
-        catch(exc)
+    catch(exc)
         {
-        setBuildStatus("Build failed", "FAILURE")
-        throw exc
+            setBuildStatus("Build failed", "FAILURE")
+            throw exc
         }
+
     }
-
-
 
 
 

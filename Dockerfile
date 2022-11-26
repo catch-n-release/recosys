@@ -14,7 +14,7 @@ ENV APP_MODULE app:/recosys/app
 
 COPY --from=requirements-stage /tmp/requirements.txt /recosys/requirements.txt
 
-RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt
+#RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt
 
 COPY ./pyproject.toml ./poetry.lock* /recosys/
 COPY ./_tests /recosys/_tests
@@ -25,7 +25,7 @@ COPY ./utils /recosys/utils
 
 #RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt
 
-#WORKDIR /recosys
+WORKDIR /recosys
 
 #RUN mkdir reports
 
@@ -34,4 +34,4 @@ COPY ./utils /recosys/utils
 #RUN ["pytest", "-v","-m","not app", "--junitxml=reports/ml_result.xml"]
 #RUN ["pytest", "-v","-m","app","--cov", "--junitxml=reports/app_result.xml"]
 
-#CMD tail -f /dev/null
+CMD tail -f /dev/null

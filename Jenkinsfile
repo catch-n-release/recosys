@@ -47,33 +47,31 @@ node
                     }
 
             }
-
-            stage("PUBLISHING RESULTS")
-                {
-                    junit '**/reports/*.xml'
-                    setBuildStatus("Build succeeded", "SUCCESS")
-                }
-            }
-
-            stage("DEPLOYING IMAGE")
-                {
-
-                withDockerRegistry([credentialsId: "dockerHub"])
-
-                    {
-
-                    recosysImage.push()
-
-                    }
-                }
-            }
-
-
-        catch(exc)
+             catch(exc)
             {
                 setBuildStatus("Build failed", "FAILURE")
                 throw exc
             }
+
+    stage("PUBLISHING RESULTS")
+        {
+            junit '**/reports/*.xml'
+            setBuildStatus("Build succeeded", "SUCCESS")
+        }
+
+
+    stage("DEPLOYING IMAGE")
+        {
+
+        withDockerRegistry([credentialsId: "dockerHub"])
+
+            {
+
+            recosysImage.push()
+
+            }
+        }
+
     }
 
 

@@ -1,6 +1,9 @@
 import pathlib
 
 from ml.sifts import run_train_test_sift_suite
+from test_ml import pytestmark
+
+pytestmark
 
 
 def test_train_test_sift(app_config):

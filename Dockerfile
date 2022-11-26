@@ -14,6 +14,8 @@ ENV APP_MODULE app:/recosys/app
 
 COPY --from=requirements-stage /tmp/requirements.txt /recosys/requirements.txt
 
+RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt
+
 COPY ./pyproject.toml ./poetry.lock* /recosys/
 COPY ./_tests /recosys/_tests
 COPY ./app /recosys/app

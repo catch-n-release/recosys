@@ -45,6 +45,7 @@ node
                     sh "cp -r reports /reports"
 
                     }
+                }
 
             }
              catch(exc)

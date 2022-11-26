@@ -46,7 +46,9 @@ node
 
                     }
 
-                stage("DEPLOYING IMAGE")
+            }
+
+            stage("DEPLOYING IMAGE")
                 {
 
                 withDockerRegistry([credentialsId: "dockerHub"])
@@ -56,8 +58,6 @@ node
                     recosysImage.push()
 
                     }
-                }
-
                 }
 
             stage("PUBLISHING RESULTS")

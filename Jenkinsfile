@@ -24,6 +24,14 @@ node
                     sh "rm -rf reports && mkdir reports"
                     }
 
+                    stage("TESTING ML FLUX")
+
+                    {
+
+                    sh "pytest -v -m utils --junitxml=reports/ml_result.xml"
+
+                    }
+
                 stage("TESTING ML FLUX")
 
                     {

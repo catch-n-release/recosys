@@ -48,6 +48,13 @@ node
 
             }
 
+            stage("PUBLISHING RESULTS")
+                {
+                    junit '**/reports/*.xml'
+                    setBuildStatus("Build succeeded", "SUCCESS")
+                }
+            }
+
             stage("DEPLOYING IMAGE")
                 {
 
@@ -59,13 +66,6 @@ node
 
                     }
                 }
-
-            stage("PUBLISHING RESULTS")
-                {
-                    junit '**/reports/*.xml'
-                    setBuildStatus("Build succeeded", "SUCCESS")
-                }
-            }
 
         catch(exc)
             {

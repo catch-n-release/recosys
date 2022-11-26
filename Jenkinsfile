@@ -3,6 +3,8 @@
 node
     {
     /* specify nodes for executing */
+        // agent any
+    cleanWs()
     checkout scm
     setBuildStatus("Build Started", "PENDING")
     env.ImageName = "snsrivas/recosys"

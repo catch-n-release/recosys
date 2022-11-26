@@ -72,7 +72,7 @@ node
 
                 {
 
-                recosysImage.push()
+                recosysImage.push("latest")
 
                 }
             }

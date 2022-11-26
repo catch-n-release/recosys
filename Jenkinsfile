@@ -66,6 +66,8 @@ node
 
                     }
                 }
+            }
+
 
         catch(exc)
             {

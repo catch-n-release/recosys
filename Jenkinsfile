@@ -119,6 +119,7 @@ node
             remote.name = "Production Server"
             remote.host = "128.2.205.113"
             remote.allowAnyHosts = true
+            remote.pty = true
             withCredentials([usernamePassword(credentialsId: 'prodServer', passwordVariable: 'password', usernameVariable: 'userName')])
                 {
                 remote.user = userName

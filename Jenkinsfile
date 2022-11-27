@@ -122,7 +122,10 @@ node
                 // sshCommand remote: remote, command: "ls"
                 def commandResult = sshCommand remote: remote,
                 sudo: true,
-                command: "docker run -d -p 8088:80 snsrivas/recosys:1.0.0.59 uvicorn app.app:app --host 0.0.0.0 --port 80"
+                command: "docker run -d -p 8088:80 snsrivas/recosys:1.0.0.59 "
+
+                // uvicorn app.app:app --host 0.0.0.0 --port 80
+
                 echo "Result: " + commandResult
                 // sshScript remote: remote, script: 'test.sh'
                 // sshPut remote: remote, from: 'test.sh', into: '.'

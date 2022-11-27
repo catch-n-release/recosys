@@ -126,9 +126,9 @@ node
                 remote.password = password
 
             //     // stage("SSH Steps Rocks!") {
-                writeFile file: 'test.sh', text: 'docker pull snsrivas/recosys:1.0.0.60'
+                // writeFile file: 'test.sh', text: 'docker pull snsrivas/recosys:1.0.0.60'
                 // sshScript remote: remote, sudo:true, script: 'test.sh'
-                sshCommand remote: remote, sudo:true, command: "sudo sh test.sh"
+                sshCommand remote: remote, sudo:true, command: "docker pull snsrivas/recosys:1.0.0.60"
                 // def commandResult =
             //     sshCommand remote: remote, sudo: true,
             //     command: "docker run -d -p 8089:80 snsrivas/recosys:1.0.0.60 "

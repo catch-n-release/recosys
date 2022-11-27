@@ -50,7 +50,8 @@ class MovieRecommender:
             self.movies = load_metadata["movies"]
             self.users = load_metadata["users"]
         except Exception as e:
-            raise e
+            # raise e
+            pass
 
     async def recommend(
         self,

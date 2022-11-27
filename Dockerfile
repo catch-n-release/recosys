@@ -16,14 +16,16 @@ COPY --from=requirements-stage /tmp/requirements.txt /recosys/requirements.txt
 
 #RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt
 
-#COPY ./pyproject.toml ./poetry.lock* /recosys/
-#COPY ./_tests /recosys/_tests
-#COPY ./app /recosys/app
-#COPY ./data /recosys/data
-#COPY ./ml /recosys/ml
-#COPY ./utils /recosys/utils
+COPY ./pyproject.toml ./poetry.lock* /recosys/
+COPY ./_tests /recosys/_tests
+COPY ./app /recosys/app
+COPY ./data /recosys/data
+COPY ./ml /recosys/ml
+COPY ./utils /recosys/utils
 
-#WORKDIR /recosys
+RUN pip install --upgrade pip && pip install -r /recosys/requirements.txt
+
+WORKDIR /recosys
 
 #RUN mkdir reports
 
@@ -32,4 +34,4 @@ COPY --from=requirements-stage /tmp/requirements.txt /recosys/requirements.txt
 #RUN ["pytest", "-v","-m","not app", "--junitxml=reports/ml_result.xml"]
 #RUN ["pytest", "-v","-m","app","--cov", "--junitxml=reports/app_result.xml"]
 
-#CMD tail -f /dev/null
+CMD tail -f /dev/null

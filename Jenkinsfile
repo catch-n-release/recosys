@@ -108,26 +108,26 @@ node
     stage("DEPLOYING APPLICATION")
             {
 
-             sshagent(credentials:['prodServerSSH'])
-                {
-                sh 'ssh snsrivas@128.2.205.113 "docker pull snsrivas/recosys:1.0.0.60"'
-                }
-                echo "success lgoin"
-            }
-
-            // def remote = [:]
-            // remote.name = "Production Server"
-            // remote.host = "128.2.205.113"
-            // remote.allowAnyHosts = true
-            // withCredentials([usernamePassword(credentialsId: 'prodServer', passwordVariable: 'password', usernameVariable: 'userName')])
+            //  sshagent(credentials:['prodServerSSH'])
             //     {
-            //     remote.user = userName
-            //     remote.password = password
+            //     sh 'ssh snsrivas@128.2.205.113 "docker pull snsrivas/recosys:1.0.0.60"'
+            //     }
+            //     echo "success lgoin"
+            // }
+
+            def remote = [:]
+            remote.name = "Production Server"
+            remote.host = "128.2.205.113"
+            remote.allowAnyHosts = true
+            withCredentials([usernamePassword(credentialsId: 'prodServer', passwordVariable: 'password', usernameVariable: 'userName')])
+                {
+                remote.user = userName
+                remote.password = password
 
             //     // stage("SSH Steps Rocks!") {
-            //     // writeFile file: 'test.sh', text: 'ls'
-            //     // sshCommand remote: remote, command: "ls"
-            //     // def commandResult =
+                writeFile file: 'test.sh', text: 'docker pull snsrivas/recosys:1.0.0.60'
+                sshCommand remote: remote, sudo:true, command: "sh test.sh"
+                // def commandResult =
             //     sshCommand remote: remote, sudo: true,
             //     command: "docker run -d -p 8089:80 snsrivas/recosys:1.0.0.60 "
 
@@ -139,9 +139,9 @@ node
                 // sshGet remote: remote, from: 'test.sh', into: 'test_new.sh', override: true
                 // sshRemove remote: remote, path: 'test.sh'
                 // }
-                // }
+            }
 
-            // }
+        }
 
     }
 

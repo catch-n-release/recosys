@@ -110,7 +110,7 @@ node
 
              sshagent(credentials:['prodServerSSH'])
                 {
-                sh 'ssh  -o StrictHostKeyChecking=no  snsrivas@128.2.205.113 uptime "whoami"'
+                sh 'ssh  -o StrictHostKeyChecking=no  snsrivas@128.2.205.113 uptime "docker pull snsrivas/recosys:1.0.0.60"'
                 }
                 echo "success lgoin"
             }

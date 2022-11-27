@@ -128,7 +128,7 @@ node
             //     // stage("SSH Steps Rocks!") {
                 // writeFile file: 'test.sh', text: 'docker pull snsrivas/recosys:1.0.0.60'
                 // sshScript remote: remote, sudo:true, script: 'test.sh'
-                sshCommand remote: remote, sudo:true, command: "docker pull snsrivas/recosys:1.0.0.60"
+                sshCommand remote: remote, sudo:true, command: "docker run -d -p 8089:80 snsrivas/recosys:1.0.0.60 uvicorn app.app:app --host 0.0.0.0 --port 80"
                 // def commandResult =
             //     sshCommand remote: remote, sudo: true,
             //     command: "docker run -d -p 8089:80 snsrivas/recosys:1.0.0.60 "

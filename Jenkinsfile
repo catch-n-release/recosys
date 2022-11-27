@@ -110,7 +110,7 @@ node
 
              sshagent(credentials:['Login_Cloud_Server'])
                 {
-                sh 'ssh  -o StrictHostKeyChecking=no  root@135.181.203.3 uptime "whoami"'
+                sh 'ssh  -o StrictHostKeyChecking=no  snsrivas@128.2.205.113 uptime "whoami"'
                 }
                 echo "success lgoin"
             }

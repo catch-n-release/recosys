@@ -108,25 +108,32 @@ node
     stage("DEPLOYING APPLICATION")
             {
 
-            def remote = [:]
-            remote.name = "Production Server"
-            remote.host = "128.2.205.113"
-            remote.allowAnyHosts = true
-            withCredentials([usernamePassword(credentialsId: 'prodServer', passwordVariable: 'password', usernameVariable: 'userName')])
+             sshagent(credentials:['Login_Cloud_Server'])
                 {
-                remote.user = userName
-                remote.password = password
+                sh 'ssh  -o StrictHostKeyChecking=no  root@135.181.203.3 uptime "whoami"'
+                }
+                echo "success lgoin"
+            }
 
-                // stage("SSH Steps Rocks!") {
-                // writeFile file: 'test.sh', text: 'ls'
-                // sshCommand remote: remote, command: "ls"
-                // def commandResult =
-                sshCommand remote: remote, sudo: true,
-                command: "docker run -d -p 8089:80 snsrivas/recosys:1.0.0.60 "
+            // def remote = [:]
+            // remote.name = "Production Server"
+            // remote.host = "128.2.205.113"
+            // remote.allowAnyHosts = true
+            // withCredentials([usernamePassword(credentialsId: 'prodServer', passwordVariable: 'password', usernameVariable: 'userName')])
+            //     {
+            //     remote.user = userName
+            //     remote.password = password
 
-                // uvicorn app.app:app --host 0.0.0.0 --port 80
+            //     // stage("SSH Steps Rocks!") {
+            //     // writeFile file: 'test.sh', text: 'ls'
+            //     // sshCommand remote: remote, command: "ls"
+            //     // def commandResult =
+            //     sshCommand remote: remote, sudo: true,
+            //     command: "docker run -d -p 8089:80 snsrivas/recosys:1.0.0.60 "
 
-                echo "Result: " + commandResult
+            //     // uvicorn app.app:app --host 0.0.0.0 --port 80
+
+            //     echo "Result: " + commandResult
                 // sshScript remote: remote, script: 'test.sh'
                 // sshPut remote: remote, from: 'test.sh', into: '.'
                 // sshGet remote: remote, from: 'test.sh', into: 'test_new.sh', override: true

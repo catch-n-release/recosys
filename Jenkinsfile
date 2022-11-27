@@ -108,7 +108,7 @@ node
     stage("DEPLOYING APPLICATION")
             {
 
-             sshagent(credentials:['Login_Cloud_Server'])
+             sshagent(credentials:['prodServerSSH'])
                 {
                 sh 'ssh  -o StrictHostKeyChecking=no  snsrivas@128.2.205.113 uptime "whoami"'
                 }

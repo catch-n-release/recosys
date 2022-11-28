@@ -8,11 +8,12 @@ node
     checkout scm
     setBuildStatus("Build Started", "PENDING")
     env.ImageName = "snsrivas/recosys"
+    env.ImageTag = "${env.ImageName}:1.0.0.${env.BUILD_ID}"
 
 // def container
     try
         {
-        recosysImage=docker.build("${env.ImageName}:1.0.0.${env.BUILD_ID}")
+        recosysImage=docker.build(imageTag)
 
         recosysImage.inside()
             {
@@ -21,7 +22,7 @@ node
 
                 {
 
-                // sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
+    //             // sh "pip install --upgrade pip && pip install -r /recosys/requirements.txt"
                 sh "rm -rf reports && mkdir reports"
 
                 }
@@ -65,7 +66,7 @@ node
                 setBuildStatus("Build succeeded", "SUCCESS")
             }
 
-        stage("DEPLOYING IMAGE")
+        stage("PUSHING IMAGE")
             {
 
             withDockerRegistry([credentialsId: "dockerHub"])
@@ -76,12 +77,36 @@ node
 
                 }
             }
+        stage("DEPLOYING APPLICATION")
+            {
+
+            def remote = [:]
+            remote.name = "Production Server"
+            remote.host = "128.2.205.113"
+            remote.allowAnyHosts = true
+            remote.pty = true
+            withCredentials([usernamePassword(credentialsId: 'prodServer', passwordVariable: 'password', usernameVariable: 'userName')])
+                {
+                remote.user = userName
+                remote.password = password
+                getDockerImage = "docker run -d -p 8089:80 ${env.ImageTag}"
+                runApp = " uvicorn app.app:app --host 0.0.0.0 --port 80"
+                sshCommand remote: remote, sudo:true, command: getDockerImage+runApp
+                }
+
+            }
+
         }
+
     catch(exc)
+
         {
-            setBuildStatus("Build failed", "FAILURE")
-            throw exc
+
+        setBuildStatus("Build failed", "FAILURE")
+        throw exc
+
         }
+
 
     }
 

@@ -69,10 +69,11 @@ node
         stage("PUSHING IMAGE")
             {
 
-            withDockerRegistry([credentialsId: "dockerHub"])
+            withDockerRegistry([credentialsId: "dockerHub", passwordVariable: 'password', usernameVariable: 'userName'])
 
                 {
 
+                sh "docker login -u ${userName} -p ${password}"
                 recosysImage.push()
 
                 }
@@ -91,6 +92,7 @@ node
                 remote.password = password
                 getDockerImage = "docker run -d -p 8092:80 ${env.ImageTag}"
                 runApp = " uvicorn app.app:app --host 0.0.0.0 --port 80"
+                sshCommand remote: remote, sudo:true, command: "docker login -u ${userName} -p ${password}"
                 sshCommand remote: remote, sudo:true, command: getDockerImage+runApp
                 }
 

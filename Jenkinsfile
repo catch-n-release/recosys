@@ -89,7 +89,7 @@ node
                 {
                 remote.user = userName
                 remote.password = password
-                getDockerImage = "docker run -d -p 8089:80 ${env.ImageTag}"
+                getDockerImage = "docker run -d -p 8092:80 ${env.ImageTag}"
                 runApp = " uvicorn app.app:app --host 0.0.0.0 --port 80"
                 sshCommand remote: remote, sudo:true, command: getDockerImage+runApp
                 }

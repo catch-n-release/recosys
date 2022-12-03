@@ -28,6 +28,7 @@ def train_predictor(trainset: Dataset) -> AlgoBase:
     try:
         predictor = SVD(
             n_factors=100,
+            n_epochs=50,
             biased=True,
             random_state=15,
             verbose=True,

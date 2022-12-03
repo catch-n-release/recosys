@@ -1,0 +1,111 @@
+[tool.poetry]
+name = "test"
+version = "0.1.0"
+description = ""
+authors = ["Suyash Srivastava <snsrivas@andrew.cmu.edu>"]
+readme = "README.md"
+packages = [
+    { include = "app" },
+    { include = "_tests" },
+    { include = "data" },
+    { include = "ml" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.85.0"
+uvicorn = "^0.18.3"
+pandas="1.4.2"
+numpy="1.22.4"
+scikit-surprise="1.1.1"
+pytest = "7.2.0"
+deepchecks = "^0.9.2"
+pytest-cov = "^4.0.0"
+requests = "^2.28.1"
+tomli = "^2.0.1"
+httpx = "^0.23.0"
+asgi-lifespan = "^1.0.1"
+pytest-asyncio = "^0.20.1"
+prefect = "^2.6.6"
+greenlet = "^2.0.1"
+omegaconf = "^2.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+markers = [ "raw_df: test using unprocessed dataframe.",
+            "clean_df: test using a processed dataframe.",
+            "app: API Tests.",
+            "ml: ML Flux Tests",
+            "utils: Utilities Tests."]
+
+
+[tool.logging]
+version = 1
+disable_existing_loggers = false
+
+[tool.logging.formatters.formatter]
+"()" = "uvicorn.logging.DefaultFormatter"
+# class = "logging.Formatter"
+format = "%(levelprefix)s %(asctime)s | %(message)s"
+datefmt= "%Y-%m-%d %H:%M:%S"
+
+
+[tool.logging.handlers.console]
+class = "logging.StreamHandler"
+formatter = "formatter"
+stream = "ext://sys.stdout"
+level = "DEBUG"
+
+
+[tool.logging.loggers.recosys]
+propagate = true
+level = "DEBUG"
+handlers = ["console"]
+formatter = "formatter"
+# propagate = false
+
+#Paths & Constants used across the application.
+[app]
+[app.path]
+self = "pyproject.toml"
+dataset_dir = "data/"
+dataset = "data/raw_data_1667912638764.csv"
+trainset = "data/trainset.csv"
+testset = "data/testset.csv"
+processed_dataset = "data/processed.csv"
+
+predictor_dir = "ml/predictors/"
+predictor = "ml/predictors/predictor.surp"
+
+recommeder_dir = "app/recommenders/"
+baseline_predictor_path = "app/recommenders/rec_model_BaseLine_v1.surp"
+svd_predictor_path = "app/recommenders/rec_model_SVD_v1.surp"
+recommender = "app/recommenders/recommender.surp"
+
+html_report_dir = "app/htmls/"
+di_sift_html = "app/htmls/data_integrity_checks/data_integrity_report.html"
+tt_sift_html = "app/htmls/train_test_checks/train_test_report.html"
+algo_eval_sift_html = "app/htmls/predictor_checks/predictor_eval_report.html"
+
+metadata = "app/meta_data.json"
+
+[app.ml.data]
+categorical_columns = ["movie_name"]
+label = "movie_rating"
+label_type = "regression"
+columns = ["user_id","movie_name","movie_rating"]
+rating_scale = [1,5]
+
+[app.ml.data.ticks]
+ignore_di = [4,5,6]
+ignore_ttv = [2]
+ignore_pe = [4,7]
+
+[app.ml.const]
+trainset = "trainset"
+testset = "testset"

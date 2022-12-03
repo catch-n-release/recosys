@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+
+  traefik:
+    image: "traefik:v2.6"
+    ports:
+      - "8082:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./traefik.toml:/traefik.toml
+
+  app_ek:
+    image: app_ek
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.app_ek.rule=Host(`localhost`)
+      - traefik.http.services.app.loadbalancer.server.port=80
+      - traefik.weight=50
+
+  app_do:
+    image: app_do
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.app_do.rule=Host(`localhost`)
+      - traefik.http.services.app.loadbalancer.server.port=80
+      - traefik.weight=50

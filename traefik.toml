@@ -1,0 +1,14 @@
+[entryPoints]
+    [entryPoints.http]
+    address = ":80"
+
+[api]
+insecure = true
+dashboard = true
+
+[providers.docker]
+# endpoint = "/var/run/docker.sock"
+watch = true
+exposedByDefault = false
+
+

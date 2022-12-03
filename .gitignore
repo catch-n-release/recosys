@@ -16,3 +16,4 @@ ml/predictors/*
 data/*
 !data/raw_data_1667912638764.csv
 !ml/predictors/.gitkeep
+dvc_remote/

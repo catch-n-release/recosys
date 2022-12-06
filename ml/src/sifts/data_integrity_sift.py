@@ -4,9 +4,9 @@ from deepchecks.tabular.suites import data_integrity
 from prefect import flow, task
 from prefect.tasks import task_input_hash
 
-from ml.utils import boot_config, sift_success, boot_dc_dataset
-from ml.src.ingress import boot_dataframe
-from ml import log
+from utils import boot_config, sift_success, boot_dc_dataset
+from src.ingress import boot_dataframe
+from src.sifts import log
 
 
 @task(

@@ -5,8 +5,8 @@ from deepchecks.tabular import Dataset
 from deepchecks.tabular.suites import train_test_validation
 import pandas as pd
 
-from ml.utils import boot_config, sift_success, boot_dc_dataset
-from ml import log
+from utils import boot_config, sift_success, boot_dc_dataset
+from sifts import log
 
 
 @task(

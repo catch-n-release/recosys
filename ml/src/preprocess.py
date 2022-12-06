@@ -2,8 +2,8 @@ from prefect import task, flow
 import pandas as pd
 from omegaconf import OmegaConf
 
-from ml.utils import boot_config
-from ml.src.ingress import boot_dataframe
+from utils import boot_config
+from src import boot_dataframe
 
 
 @task(retries=3, retry_delay_seconds=5)

@@ -10,7 +10,7 @@ from prefect.tasks import task_input_hash
 @task
 def boot_config() -> type:
     try:
-        with open("ml/pyproject.toml", "rb") as stream:
+        with open("pyproject.toml", "rb") as stream:
             toml_dict = toml.load(stream)
         config = OmegaConf.create(toml_dict)
         return config
